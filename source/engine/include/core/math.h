@@ -18,14 +18,10 @@ namespace engine {
         using std::max;
         using std::clamp;
         inline int getRandomInt(int max) {
-            std::mt19937 rand(std::random_device{}());
-            std::uniform_real_distribution<int> dist(0, max - 1);
-            return dist(rand);
+            return rand() % max;
         }
         inline int getRandomInt(int min, int max) {
-            std::mt19937 rand(std::random_device{}());
-            std::uniform_real_distribution<int> dist(min, max - 1);
-            return dist(rand);
+            return min + getRandomInt(max - min + 1);
         }
 
         /// Get a random double between 0 and 1.

@@ -3,7 +3,8 @@
 engine_inc = include_directories('include')
 engine_sources = files(
     'src/engine.cpp',
-    'src/render.cu'
+    'src/render/cpurender.cpp',
+    'src/render/gpurender.cu'
 )
 
 engine_lib = static_library('engine',
@@ -14,6 +15,7 @@ engine_lib = static_library('engine',
                                 dependency('fmt', required: false),
                                 dependency('cuda', required: true),
                                 dependency('hip', required: true),
+                                dependency('sdl3', required: true),
                             ],
                             install : true,
 )

@@ -5,7 +5,7 @@ game_sources = files(
 
 game = executable('game',
                       game_sources,
-                      dependencies : engine_dep,
+                      dependencies : [engine_dep],
                       install : true,
                       install_dir : 'bin'
 )
