@@ -1,0 +1,7 @@
+If:
+  PathMatch: .*\.cu$
+CompileFlags:
+  Add: 
+    - -xcuda
+    - --cuda-gpu-arch=sm_89
+    - -I/usr/local/cuda/include

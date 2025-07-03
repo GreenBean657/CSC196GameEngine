@@ -1,8 +1,9 @@
+# Find CUDA dependency
 
 engine_inc = include_directories('include')
-
 engine_sources = files(
-    'src/engine.cpp'
+    'src/engine.cpp',
+    'src/render.cu'
 )
 
 engine_lib = static_library('engine',
@@ -10,7 +11,9 @@ engine_lib = static_library('engine',
                             include_directories : engine_inc,
                             dependencies : [
                                 #Example dependency
-                                dependency('fmt', version: '>=8.0.0'),
+                                dependency('fmt', required: false),
+                                dependency('cuda', required: true),
+                                dependency('hip', required: true),
                             ],
                             install : true,
 )
