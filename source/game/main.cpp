@@ -5,12 +5,6 @@
 
 
 int main() {
-    std::cout << engine::math::clamp(3, 1, 3);
-    std::cout << "Hello World (From Game)!" << std::endl;
-    engine::HelloWorld();
-    std::cout << engine::math::PI;
-    std::cout << std::endl;
-    std::cout << engine::math::getRandomDouble();
     return engine::cpurender::drawRandomWindow("My Game", 1024);
 
 }
