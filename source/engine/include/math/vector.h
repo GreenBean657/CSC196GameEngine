@@ -1,3 +1,5 @@
+#include <cstdint>
+
 template<typename T>
 struct Vector2 {
     T x, y;
@@ -8,5 +10,6 @@ struct Vector2 {
     }
 };
 
-using IVec2 = Vector2<int>;
+using UIVec2 = Vector2<uint32_t>;
+using IVec2 = Vector2<int32_t>;
 using FVec2 = Vector2<float>;
