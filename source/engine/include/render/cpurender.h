@@ -1,4 +1,6 @@
 #pragma once
+
+#include <cstdint>
 namespace engine::cpurender {
-    int drawRandomWindow(const std::string &title, const uint32_t &widthHeight);
+    [[nodiscard]] int drawRandomWindow(const std::string &title, const uint32_t &widthHeight);
 }

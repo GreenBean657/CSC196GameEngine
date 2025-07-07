@@ -5,7 +5,8 @@
 
 #include <thread>
 
-#include "core/math.h"
+#include "math/math.h"
+#include "render/renderer.h"
 
 #define CPU_R_RANDOM_LINES 300
 #define CPU_R_RANDOM_DOTS 60000
@@ -19,7 +20,7 @@ namespace engine::cpurender {
      * @param maxVal Highest supported value for the operation.
      */
     void arrayFill(const size_t start, const size_t end, uint32_t* data, uint32_t maxVal) {
-        for (int i = start; i < end; i++) {
+        for (size_t i = start; i < end; i++) {
             data[i] = math::getRandomInt(maxVal);
         }
     }
@@ -30,7 +31,7 @@ namespace engine::cpurender {
      * @param threadCt Thread array length.
      */
     void __threadSync(auto *threads, const size_t threadCt) {
-        for (int i = 0; i < threadCt; i++) {
+        for (size_t i = 0; i < threadCt; i++) {
             threads[i].join();
         }
     }
@@ -42,23 +43,9 @@ namespace engine::cpurender {
      */
     [[nodiscard]] int drawRandomWindow(const std::string &title, const uint32_t &widthHeight) {
 
-        SDL_Init(SDL_INIT_VIDEO);
-        SDL_Window* window = SDL_CreateWindow(title.c_str(), widthHeight, widthHeight, 0);
-
-        if (window == nullptr) {
-            std::cerr << "Failed to create window: " << SDL_GetError() << std::endl;
-            SDL_Quit();
-            return 1;
-        }
-
-        SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
-        if (renderer == nullptr) {
-            std::cerr << "Failed to create renderer: " << SDL_GetError() << std::endl;
-            SDL_DestroyWindow(window);
-            SDL_Quit();
-            return 1;
-        }
-
+        auto currentRenderer = Renderer();
+        (void)currentRenderer.Initialize();
+        (void)currentRenderer.CreateWindow(title.c_str(), widthHeight, widthHeight);
 
         {
             auto dotArray_Len = CPU_R_RANDOM_DOTS * 2;
@@ -122,44 +109,42 @@ namespace engine::cpurender {
                     }
                 }
 
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-                SDL_RenderClear(renderer);
+                currentRenderer.setColor(0, 0, 0, 255);
+
+                currentRenderer.Clear();
 
                 //SDL is not thread safe, which is lame.
                 for (uint32_t i = 0; i < CPU_R_RANDOM_DOTS; ++i) {
-                    SDL_SetRenderDrawColor(
-                        renderer,
+                    currentRenderer.setColor(
                         rgbArray[++rgbArrayPos],
                         rgbArray[++rgbArrayPos],
-                        rgbArray[++rgbArrayPos],
-                        255);
-                    SDL_RenderPoint(renderer, dotArray[++dotArrayPos], dotArray[++dotArrayPos]);
+                        rgbArray[++rgbArrayPos]
+                    );
+                    currentRenderer.DrawPoint(dotArray[++dotArrayPos], dotArray[++dotArrayPos]);
                     if (rgbArrayPos >= rgbArray_Len) {rgbArrayPos = 0;};
                 }
                     rgbArrayPos = 0;
 
                 for (uint32_t i = 0; i < CPU_R_RANDOM_LINES; i++) {
-                    SDL_SetRenderDrawColor(
-                        renderer,
+                    currentRenderer.setColor(
                         rgbArray[++rgbArrayPos],
                         rgbArray[++rgbArrayPos],
-                        rgbArray[++rgbArrayPos],
-                        255);
+                        rgbArray[++rgbArrayPos]
+                    );
 
                     if (rgbArrayPos >= rgbArray_Len) {rgbArrayPos = 0;};
-                    SDL_RenderLine(renderer,
-                    lineArray[++lineArrayPos],
-                    lineArray[++lineArrayPos],
-                    lineArray[++lineArrayPos],
-                    lineArray[++lineArrayPos]
-                        );
+                    currentRenderer.DrawLine(
+                        lineArray[++lineArrayPos],
+                        lineArray[++lineArrayPos],
+                        lineArray[++lineArrayPos],
+                        lineArray[++lineArrayPos]);
                 }
-                SDL_RenderPresent(renderer);
+                currentRenderer.Present();
 
                 lineArrayPos = 0;
                 dotArrayPos = 0;
             }
-
+            currentRenderer.Kill();
             delete[] dotArray;
             delete[] lineArray;
             delete[] rgbArray;
