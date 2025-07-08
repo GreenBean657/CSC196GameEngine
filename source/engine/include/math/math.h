@@ -17,6 +17,12 @@ namespace engine {
         using std::min;
         using std::max;
         using std::clamp;
+        using std::sqrt;
+        using std::sqrtf;
+        using std::sin;
+        using std::sinf;
+        using std::cos;
+
         inline int getRandomInt(int max) {
             return rand() % max;
         }

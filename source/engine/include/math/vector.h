@@ -1,5 +1,6 @@
-#include <cstdint>
-
+#pragma once
+#include <cassert>
+using namespace engine;
 template<typename T>
 struct Vector2 {
     T x, y;
@@ -7,6 +8,99 @@ struct Vector2 {
     Vector2(T xx, T yy) {
         x = xx;
         y = yy;
+    }
+    // x^2 + y^2
+    float LengthSqr() const {
+        return ((x * x) + (y * y));
+    }
+
+    float Length() const {
+        return sqrtf(LengthSqr());
+    }
+
+    T operator [] (const uint32_t index) const {
+        if (index == 0) {
+            return &x;
+        }
+        if (index == 1) {
+            return &y;
+        }
+        assert(index < 2);
+        throw std::out_of_range("index out of range for vector2 Object");
+    }
+
+    T& operator [] (const uint32_t index) {
+        if (index == 0) {
+            return &x;
+        }
+        if (index == 1) {
+            return &y;
+        }
+        assert(index < 2);
+        throw std::out_of_range("index out of range for vector2 Object");
+    }
+
+
+    Vector2 operator + (const Vector2& v) const {
+        return Vector2(x + v.x, y + v.y);
+    }
+    Vector2 operator - (const Vector2& v) const {
+        return Vector2(x - v.x, y - v.y);
+    }
+    Vector2 operator * (const Vector2& v) const {
+        return Vector2(x * v.x, y * v.y);
+    }
+    Vector2 operator / (const Vector2& v) const {
+        return Vector2(x / v.x, y / v.y);
+    }
+
+
+    Vector2& operator += (const Vector2& v) const {
+        x += v.x;
+        y += v.y;
+        return *this;
+    }
+    Vector2& operator -= (const Vector2& v) const {
+        x -= v.x;
+        y -= v.y;
+        return *this;
+    }
+    Vector2& operator *= (const Vector2& v) const {
+        x *= v.x;
+        y *= v.y;
+        return *this;
+    }
+    Vector2& operator /= (const Vector2& v) const {
+        x /= v.x;
+        y /= v.y;
+        return *this;
+    }
+
+
+    Vector2 operator + (const float& f) const {
+        return Vector2(x + f, y + f);
+    }
+    Vector2 operator - (const float& f) const {
+        return Vector2(x - f, y - f);
+    }
+    Vector2 operator * (const float& f) const {
+        return Vector2(x * f, y * f);
+    }
+    Vector2 operator / (const float& f) const {
+        return Vector2(x / f, y / f);
+    }
+
+    Vector2& operator += (const float& f) {
+        return *this = *this + f;
+    }
+    Vector2& operator -= (const float& f) {
+        return *this = *this - f;
+    }
+    Vector2& operator *= (const float& f) {
+        return *this = *this * f;
+    }
+    Vector2& operator /= (const float& f) {
+        return *this = *this / f;
     }
 };
 

@@ -6,6 +6,7 @@
 #include <thread>
 
 #include "math/math.h"
+#include "math/vector.h"
 #include "render/renderer.h"
 
 #define CPU_R_RANDOM_LINES 300
@@ -47,6 +48,10 @@ namespace engine::cpurender {
         (void)currentRenderer.Initialize();
         (void)currentRenderer.CreateWindow(title.c_str(), widthHeight, widthHeight);
 
+        std::vector<Vector2<int>> stars;
+        for (size_t i = 0; i < CPU_R_RANDOM_DOTS; i++) {
+            stars.push_back(Vector2<int>(math::getRandomInt(widthHeight), widthHeight));
+        }
         {
             auto dotArray_Len = CPU_R_RANDOM_DOTS * 2;
             auto lineArray_Len = CPU_R_RANDOM_DOTS * 4;
