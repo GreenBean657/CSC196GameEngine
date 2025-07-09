@@ -6,14 +6,14 @@ engine_sources = files(
     'src/render/cpurender.cpp',
     'src/render/gpurender.cu',
     'src/render/renderer.cpp',
-    'src/math/math.cpp'
+    'src/math/math.cpp',
+    'src/input/inputsystem.cpp'
 )
 
 engine_lib = static_library('engine',
                             engine_sources,
                             include_directories : engine_inc,
                             dependencies : [
-                                #Example dependency
                                 dependency('fmt', required: false),
                                 dependency('cuda', required: true),
                                 dependency('hip', required: true),

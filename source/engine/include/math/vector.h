@@ -1,6 +1,6 @@
 #pragma once
 #include <cassert>
-using namespace engine;
+#include <stdexcept>
 template<typename T>
 struct Vector2 {
     T x, y;
@@ -9,14 +9,21 @@ struct Vector2 {
         x = xx;
         y = yy;
     }
-    // x^2 + y^2
-    float LengthSqr() const {
+
+    /**
+     * @brief Returns the squared length of the vector.
+     */
+    [[nodiscard]] float LengthSqr() const {
         return ((x * x) + (y * y));
     }
 
-    float Length() const {
+    /**
+     * @brief Returns the length of the vector.
+     */
+    [[nodiscard]] float Length() const {
         return sqrtf(LengthSqr());
     }
+
 
     T operator [] (const uint32_t index) const {
         if (index == 0) {

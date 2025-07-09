@@ -3,4 +3,5 @@
 
 namespace engine {
     void HelloWorld();
+    void getInput();
 }
