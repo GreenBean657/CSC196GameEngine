@@ -16,10 +16,20 @@ namespace engine {
                 const uint32_t& height = 1080
                 );
 
+            static bool tryExit() {
+                SDL_Event polled;
+                while (SDL_PollEvent(&polled)) {
+                    if (polled.type == SDL_EVENT_QUIT) {
+                        return true;
+                    }
+                }
+            return false;
+            }
+
             void setColor(const uint8_t& r, const uint8_t& g, const uint8_t& b, const uint8_t& a = 255);
 
-            void DrawLine(const uint32_t& x1, const uint32_t& y1, const uint32_t& x2, const uint32_t& y2);
-            void DrawPoint(const uint32_t& x, const uint32_t& y) const;
+            void DrawLine(const float &x1, const float &y1, const float &x2, const float &y2);
+            void DrawPoint(const float &x, const float &y) const;
 
             void Present();
             void Clear();

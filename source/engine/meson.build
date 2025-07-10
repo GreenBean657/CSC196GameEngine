@@ -3,10 +3,10 @@
 engine_inc = include_directories('include')
 engine_sources = files(
     'src/engine.cpp',
-    'src/render/cpurender.cpp',
     'src/render/gpurender.cu',
     'src/render/renderer.cpp',
     'src/math/math.cpp',
+    'src/math/time.cpp',
     'src/input/inputsystem.cpp'
 )
 

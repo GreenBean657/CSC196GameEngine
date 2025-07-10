@@ -1,8 +1,4 @@
-#include <iostream>
-#include "engine.h"
-#include <iostream>
-#include "render/cpurender.h"
+#include <inputSystemPaint.h>
 int main() {
-
-    return engine::cpurender::drawRandomWindow("My Game", 1024);
+    return InputPaint();
 }

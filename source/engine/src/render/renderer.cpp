@@ -37,11 +37,11 @@ namespace engine {
                 SDL_SetRenderDrawColor(renderer, r, g, b, a);
         }
 
-        void Renderer::DrawLine(const uint32_t &x1, const uint32_t &y1, const uint32_t &x2, const uint32_t &y2) {
+        void Renderer::DrawLine(const float &x1, const float &y1, const float &x2, const float &y2) {
                 SDL_RenderLine(renderer, x1, y1, x2, y2);
         }
 
-        void Renderer::DrawPoint(const uint32_t& x, const uint32_t& y) const {
+        void Renderer::DrawPoint(const float& x, const float& y) const {
                 SDL_RenderPoint(renderer, x, y);
         }
 

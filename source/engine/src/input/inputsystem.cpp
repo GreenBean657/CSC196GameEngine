@@ -16,14 +16,15 @@ bool InputSystem::Initialize() {
 }
 
 void InputSystem::Tick() {
+
     m_prevKeyboardState = m_keyboardState;
     const bool* curr_keyboardState = SDL_GetKeyboardState(nullptr);
     std::copy(curr_keyboardState, curr_keyboardState + m_keyboardState.size(), m_keyboardState.begin());
 
     m_lastMousePosition = m_mousePosition;
-    uint32_t mouseButtonState = SDL_GetMouseState(&m_mousePosition.x, &m_mousePosition.y);
+    const uint32_t mouseButtonState = SDL_GetMouseState(&m_mousePosition.x, &m_mousePosition.y);
 
-    m_mouseButtonState[0] = (mouseButtonState & SDL_BUTTON_LMASK);
-    m_mouseButtonState[1] = (mouseButtonState & SDL_BUTTON_MMASK);
-    m_mouseButtonState[2] = (mouseButtonState & SDL_BUTTON_RMASK);
+    m_mouseButtonState[M_BUTTON_LEFT] = (mouseButtonState & SDL_BUTTON_LMASK);
+    m_mouseButtonState[M_BUTTON_MIDDLE] = (mouseButtonState & SDL_BUTTON_MMASK);
+    m_mouseButtonState[M_BUTTON_RIGHT] = (mouseButtonState & SDL_BUTTON_RMASK);
 }
