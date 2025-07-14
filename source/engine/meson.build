@@ -7,7 +7,8 @@ engine_sources = files(
     'src/render/renderer.cpp',
     'src/math/math.cpp',
     'src/math/time.cpp',
-    'src/input/inputsystem.cpp'
+    'src/input/inputsystem.cpp',
+    'src/audio/audio.cpp'
 )
 
 engine_lib = static_library('engine',

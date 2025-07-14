@@ -36,7 +36,7 @@ namespace engine::math {
         ///
     inline double getRandomDouble() {
         std::mt19937 rand(std::random_device{}());
-        std::uniform_real_distribution<double> dist(0.0, 1.0);
+        std::uniform_real_distribution dist(0.0, 1.0);
         return dist(rand);
     }
 
