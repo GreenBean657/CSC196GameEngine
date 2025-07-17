@@ -2,13 +2,12 @@
 
 engine_inc = include_directories('include')
 engine_sources = files(
-    'src/engine.cpp',
-    'src/render/gpurender.cu',
-    'src/render/renderer.cpp',
-    'src/math/math.cpp',
-    'src/math/time.cpp',
-    'src/input/inputsystem.cpp',
-    'src/audio/audio.cpp'
+    'src/audio/core.cpp',
+
+    'src/renderer/core.cpp',
+    'src/renderer/model.cpp',
+
+    'src/input/core.cpp',
 )
 
 engine_lib = static_library('engine',
