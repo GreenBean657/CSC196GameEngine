@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
+
 #include "math/colors/color4.h"
 #include "math/vectors/vector2.h"
 
@@ -69,10 +71,12 @@ namespace bean_engine::bean_renderer {
          * @brief Destroys the window.
          */
         ~renderModule();
+        SDL_Renderer* m_renderer = nullptr;
+
+    protected:
+
     private:
         void kill() const;
         SDL_Window* m_window = nullptr;
-        SDL_Renderer* m_renderer = nullptr;
-
     };
 }

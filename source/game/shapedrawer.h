@@ -11,12 +11,21 @@
 #include "shapedrawer.h"
 #include "renderer/model.h"
 #include <iostream>
+
+#include "renderer/font.h"
+#include "renderer/text.h"
 using namespace bean_engine;
 inline int drawShape() {
 
-    bean_renderer::renderModule renderer("Shape Window");
+    bean_renderer::renderModule renderer;
     bean_input::inputModule input;
     bool quit = false;
+
+    auto* font = new bean_text::Font();
+    font->load("data-unifon.ttf", 20);
+
+    auto* text = new bean_text::Text(font);
+    text->Create(renderer, "hello world", bean_engine::bean_math::color4(255, 255, 255, 255));
     while (!quit) {
         quit = renderer.tryExit();
         if (input.getKeyDown(SDL_SCANCODE_Q)) {
@@ -39,7 +48,7 @@ inline int drawShape() {
         vertices.emplace_back(vertices[0]);
         bean_renderer::model model(vertices, bean_math::color4(0, 255, 0, 0));
         model.draw(renderer);
-
+        text->Draw(renderer, bean_math::vector2<float>(2, 4));
         renderer.present();
         input.tick();
     }

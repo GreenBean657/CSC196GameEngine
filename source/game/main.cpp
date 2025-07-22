@@ -9,7 +9,8 @@
 
 #include "shapedrawer.h"
 #include "renderer/model.h"
+#include "textdisplay.h"
 using namespace bean_engine;
 int main() {
-    return drawShape();
+    return drawText();
 }

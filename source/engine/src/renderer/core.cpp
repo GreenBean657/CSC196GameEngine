@@ -2,10 +2,13 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <SDL3_ttf/SDL_ttf.h>
 
 namespace bean_engine::bean_renderer {
 
     void renderModule::kill() const {
+        TTF_Quit();
+        SDL_DestroyRenderer(m_renderer);
         SDL_DestroyWindow(m_window);
         SDL_Quit();
     }
@@ -16,6 +19,9 @@ namespace bean_engine::bean_renderer {
         }
         if (!SDL_Init(SDL_INIT_VIDEO)) {
             throw std::runtime_error("Failed to initialize SDL3.");
+        }
+        if (!TTF_Init()) {
+            throw std::runtime_error("Failed to initialize TTF.");
         }
         m_window = SDL_CreateWindow(name.c_str(), width, height, 0);
         if (m_window == nullptr) {
