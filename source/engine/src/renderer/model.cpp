@@ -10,17 +10,17 @@ namespace bean_engine::bean_renderer {
         for (size_t i = 0; i < vertices.size(); i++) {
             m_colors.push_back(colors[i]);
         }
-        for (size_t i = 0; i < vertices.size(); i++) {
-            m_vertices.push_back(vertices[i]);
+        for (auto vertice : vertices) {
+            m_vertices.push_back(vertice);
         }
     }
 
     model::model(const std::vector<bean_math::vector2<float> > &vertices, const bean_math::color4 &color) {
         for (size_t i = 0; i < vertices.size(); i++) {
-            m_colors.push_back(bean_math::color4(color));
+            m_colors.emplace_back(color);
         }
-        for (size_t i = 0; i < vertices.size(); i++) {
-            m_vertices.push_back(vertices[i]);
+        for (auto vertice : vertices) {
+            m_vertices.push_back(vertice);
         }
     }
 

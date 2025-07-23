@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
 
 #include "math/colors/color4.h"
 #include "math/vectors/vector2.h"

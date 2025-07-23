@@ -45,7 +45,7 @@ namespace bean_engine::bean_audio {
             return false;
         }
 
-        FMOD_RESULT result = m_system->createSound(filepath.c_str(), FMOD_DEFAULT, nullptr, &sound);
+        const FMOD_RESULT result = m_system->createSound(filepath.c_str(), FMOD_DEFAULT, nullptr, &sound);
         if (!moduleEcc(false, result)) return false;
         m_sounds[key] = sound;
         return true;

@@ -10,8 +10,8 @@ namespace bean_engine::bean_input {
         m_KeyboardState.resize(numKeys);
         m_prevKeyboardState.resize(numKeys);
 
-std::copy_n(curr_KeyboardState, m_KeyboardState.size(), m_KeyboardState.begin());        m_prevKeyboardState = m_KeyboardState;
-        return;
+        std::copy_n(curr_KeyboardState, m_KeyboardState.size(), m_KeyboardState.begin());
+        m_prevKeyboardState = m_KeyboardState;
     }
 }
 

@@ -8,11 +8,11 @@ namespace bean_engine::bean_math {
     constexpr double twoPI = (2 * PI);
     constexpr double halfPI = (PI * 0.5);
 
-    constexpr double degToRad(double degrees) {
+    constexpr double degToRad(const double &degrees) {
         return degrees * (PI / 180.0);
 
     }
-    constexpr double radToDeg(double radians) {
+    constexpr double radToDeg(const double &radians) {
         return radians * (180.0 / PI);
 
     }

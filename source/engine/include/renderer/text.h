@@ -15,8 +15,8 @@ namespace bean_engine::bean_text {
 
         ~Text();
 
-        bool Create(bean_renderer::renderModule & renderer, const std::string& text, const bean_engine::bean_math::color4);
-        void Draw(bean_renderer::renderModule &renderer, bean_math::vector2<float> position);
+        bool Create(const bean_renderer::renderModule & renderer, const std::string& text, const bean_engine::bean_math::color4);
+        void Draw(const bean_renderer::renderModule &renderer, bean_math::vector2<float> position) const;
 
 
     private:

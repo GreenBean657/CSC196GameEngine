@@ -9,7 +9,7 @@ bean_text::Text::~Text() {
     }
 }
 
-bool bean_text::Text::Create(bean_engine::bean_renderer::renderModule &renderer, const std::string &text, const bean_engine::bean_math::color4 c) {
+bool bean_text::Text::Create(const bean_engine::bean_renderer::renderModule &renderer, const std::string &text, const bean_engine::bean_math::color4 c) {
     SDL_Color color = {c.r, c.g, c.b, c.a};
     SDL_Surface* surface = TTF_RenderText_Solid(m_font->m_tffFont, text.c_str(), text.size(), color);
     if (surface == nullptr) {
@@ -29,7 +29,7 @@ bool bean_text::Text::Create(bean_engine::bean_renderer::renderModule &renderer,
     return true;
 }
 
-void bean_text::Text::Draw(bean_engine::bean_renderer::renderModule &renderer, bean_engine::bean_math::vector2<float> position) {
+void bean_text::Text::Draw(const bean_engine::bean_renderer::renderModule &renderer, bean_engine::bean_math::vector2<float> position) const {
     float width, height;
     bool success = SDL_GetTextureSize(m_texture, &width, &height);
     assert(success);

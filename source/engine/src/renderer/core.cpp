@@ -23,7 +23,7 @@ namespace bean_engine::bean_renderer {
         if (!TTF_Init()) {
             throw std::runtime_error("Failed to initialize TTF.");
         }
-        m_window = SDL_CreateWindow(name.c_str(), width, height, 0);
+        m_window = SDL_CreateWindow(name.c_str(), static_cast<int32_t>(width), static_cast<int32_t>(height), 0);
         if (m_window == nullptr) {
             std::cerr << "Failed to create window: " << SDL_GetError() << std::endl;
             SDL_Quit();
@@ -58,6 +58,10 @@ namespace bean_engine::bean_renderer {
     void renderModule::present() const {
         SDL_RenderPresent(m_renderer);
     }
+    /**
+     * @brief Detect if the user has requested a close window event.
+     * @return TRUE = EXIT REQUESTED | FALSE = DO NOT EXIT
+     */
     bool renderModule::tryExit() {
         SDL_Event polledEvent;
         while (SDL_PollEvent(&polledEvent)) {
