@@ -1,4 +1,4 @@
-#include "Demos/randomdemo.h"
+#include "Demos/modeldemo.h"
 int main() {
     return demo();
 }

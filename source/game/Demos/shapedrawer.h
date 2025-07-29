@@ -25,7 +25,7 @@ inline int drawShape() {
     font->load("data-unifon.ttf", 20);
 
     auto* text = new bean_text::Text(font);
-    text->Create(renderer, "hello world", bean_engine::bean_math::color4(255, 255, 255, 255));
+    text->Create(renderer, "hello world", bean_math::color4(255, 255, 255, 255));
     while (!quit) {
         quit = renderer.tryExit();
         if (input.getKeyDown(SDL_SCANCODE_Q)) {

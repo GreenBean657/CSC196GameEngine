@@ -39,12 +39,14 @@ namespace bean_engine::bean_renderer {
          * @param pos1 (X, Y) of point 1.
          * @param pos2 (X, Y) of point 2.
          */
-        void drawLine(bean_math::vector2<float> pos1, bean_math::vector2<float> pos2) const;
+        template<typename T>
+        void drawLine(bean_math::vector2<T> pos1, bean_math::vector2<T> pos2) const;
 
         /**
          * @brief Draws a point.
          * @param pos (X, Y) of point.
          */
+        template<typename T>
         void drawPoint(bean_math::vector2<float> pos) const;
 
         /**
@@ -79,3 +81,5 @@ namespace bean_engine::bean_renderer {
         SDL_Window* m_window = nullptr;
     };
 }
+
+#include "./core.hpp"
