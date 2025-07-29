@@ -1,8 +1,4 @@
-
-#include "../engine/include/math/vectors/vector2.h"
-
-#include "Demos/iodemo.h"
-using namespace bean_engine;
+#include "Demos/randomdemo.h"
 int main() {
     return demo();
 }
