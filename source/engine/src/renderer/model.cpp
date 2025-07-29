@@ -4,38 +4,18 @@
 #include <bits/ostream.tcc>
 
 #include "renderer/core.h"
+#include "math/colors/color4.h"
 namespace bean_engine::bean_renderer {
 
-    model::model(const std::vector<bean_math::vector2<float> > &vertices, const std::vector<bean_math::color4> &colors) {
-        for (size_t i = 0; i < vertices.size(); i++) {
-            m_colors.push_back(colors[i]);
-        }
-        for (auto vertice : vertices) {
-            m_vertices.push_back(vertice);
-        }
+    model::model(const std::vector<bean_math::vector2<float>>& vertices, const bean_math::color4& color) {
+        m_vertices = std::vector<bean_math::vector2<float>>(vertices);
+        m_colors = bean_math::color4(color);
+    }
+    void model::draw(const renderModule &renderer, const bean_math::vector2<float> &position, float rotation, float scale) const {
+        if (m_vertices.empty()) return;
+
+        renderer.setDrawColor(m_colors);
     }
 
-    model::model(const std::vector<bean_math::vector2<float> > &vertices, const bean_math::color4 &color) {
-        for (size_t i = 0; i < vertices.size(); i++) {
-            m_colors.emplace_back(color);
-        }
-        for (auto vertice : vertices) {
-            m_vertices.push_back(vertice);
-        }
-    }
-
-
-    void model::draw(const renderModule& renderer) const {
-
-        if (m_vertices.empty() || m_vertices.size() < 2) {
-            std::cerr << "Failure Drawing Model, vertices size is less than 2" << std::endl;
-            return;
-        }
-
-        for (size_t i = 0; i < (m_vertices.size() - 1); i++) {
-            renderer.setDrawColor(m_colors[i]);
-            renderer.drawLine(m_vertices[i], m_vertices[i + 1]);
-        }
-    }
 
 }

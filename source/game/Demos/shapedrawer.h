@@ -47,7 +47,6 @@ inline int drawShape() {
         vertices.emplace_back(170, 270);
         vertices.emplace_back(vertices[0]);
         bean_renderer::model model(vertices, bean_math::color4(0, 255, 0, 0));
-        model.draw(renderer);
         text->Draw(renderer, bean_math::vector2<float>(2, 4));
         renderer.present();
         input.tick();
