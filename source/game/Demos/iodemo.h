@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "io/file.h"
+#include "io/core.h"
 
 inline int demo() {
   
@@ -25,11 +25,15 @@ inline int demo() {
     if (!filenames.empty()) {
         std::cout << "Path Analysis:\n";
         std::string filename = bean_engine::file_io::getFileName(filenames[0]);
-        std::cout << "Filename only: " << filename << "\n";
+        std::cout << "Filename: " << filename << "\n";
+
+        std::string filestem = bean_engine::file_io::getFileStem(filenames[0]);
+        std::cout << "FileStem: " << filestem << "\n";
 
         // Get extension only
         std::string ext = bean_engine::file_io::getExtension(filenames[0]);
         std::cout << "Extension: " << ext << "\n\n";
+
     }
 
     // Read and display text file
