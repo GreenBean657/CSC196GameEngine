@@ -1,17 +1,20 @@
 #pragma once
 #include <ctime>
 
+#include "env/actor.h"
 #include "input/core.h"
 #include "math/vectors/vector3.h"
 #include "renderer/core.h"
 #include "renderer/model.h"
 #include "time/time.h"
+#include <memory>
 using namespace bean_engine;
 inline int demo() {
 
     bean_renderer::renderModule renderer;
-    bean_engine::bean_core::Time time;
-    bean_input::inputModule input;
+    bean_core::Time time;
+    auto input = std::make_unique<bean_input::inputModule>();
+
     auto quit = false;
     std::vector<bean_math::vector2<float>> vertices;
     vertices.emplace_back(16, 22);
@@ -29,31 +32,35 @@ inline int demo() {
     vertices.emplace_back(17, 27);
     vertices.emplace_back(vertices[0]);
 
-    const bean_renderer::model model(vertices, bean_math::color4(255, 255, 255));
-    bean_math::transform transform{bean_math::vector2<float>(0, 0), 180, 20};
+    std::shared_ptr<bean_renderer::model> model = std::make_shared<bean_renderer::model>(vertices, bean_math::color4(255, 255, 255));
+
+    const bean_math::transform transform{bean_math::vector2<float>(0, 0), 180, 20};
+
+    const auto actor = new bean_engine::actor(transform, model);
     while (!quit) {
         quit = renderer.tryExit();
-        float speed = 200.0f;
 
         bean_math::vector2<float> direction(0, 0);
-        if (input.getKeyDown(SDL_SCANCODE_W)) direction.y = -1;
-        if (input.getKeyDown(SDL_SCANCODE_S)) direction.y = 1;
-        if (input.getKeyDown(SDL_SCANCODE_A)) direction.x = -1;
-        if (input.getKeyDown(SDL_SCANCODE_D)) direction.x = 1;
+        if (input->getKeyDown(SDL_SCANCODE_W)) direction.y = -1;
+        if (input->getKeyDown(SDL_SCANCODE_S)) direction.y = 1;
+        if (input->getKeyDown(SDL_SCANCODE_A)) direction.x = -1;
+        if (input->getKeyDown(SDL_SCANCODE_D)) direction.x = 1;
         if (direction.lengthSqr() > 0) {
+            constexpr float speed = 200.0f;
             direction = direction.normalized();
-            transform.position += (direction * speed) * time.getDeltaTime();
+            actor->getTransform().position += (direction * speed) * time.getDeltaTime();
         }
 
-        if (input.getKeyDown(SDL_SCANCODE_Q)) transform.rotation -= bean_math::degToRad(90 * time.getDeltaTime());
-        if (input.getKeyDown(SDL_SCANCODE_E)) transform.rotation += bean_math::degToRad(90 * time.getDeltaTime());
+        if (input->getKeyDown(SDL_SCANCODE_Q)) actor->getTransform().rotation -= bean_math::degToRad(90 * time.getDeltaTime());
+        if (input->getKeyDown(SDL_SCANCODE_E)) actor->getTransform().rotation += bean_math::degToRad(90 * time.getDeltaTime());
         renderer.setDrawColor(bean_math::color4(0, 0, 0, 255));
         renderer.clear();
-        model.Draw(renderer, transform);
+        actor->draw(renderer);
         renderer.present();
-        input.tick();
+        input->tick();
         time.tick();
 
     }
+    renderer.kill();
     return 0;
 }
