@@ -26,10 +26,13 @@ namespace bean_engine {
         if (m_renderer == nullptr) {
             throw std::runtime_error("Renderer window properties not assigned within engine.");
         }
+
     }
 
     void engine::kill() {
-        m_audio->kill();
+        try {
+            m_audio->kill();
+        } catch (...) {}
     }
 
 

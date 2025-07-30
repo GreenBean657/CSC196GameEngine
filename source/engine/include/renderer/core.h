@@ -19,7 +19,7 @@ namespace bean_engine::bean_renderer {
          * @throws RunTimeError SDL fails to initialize, permissions fault or non-GUI environment.
          * @throws InvalidArgument SDL recieved a negative window size.
          */
-        explicit renderModule(const std::string& name = "My Application", const uint32_t& width = 600, const uint32_t& height = 600);
+        explicit renderModule(const std::string& name = "My Application", const int32_t& width = 600, const int32_t& height = 600);
 
         /**
          * Set the draw color for the window cursor.
@@ -74,10 +74,19 @@ namespace bean_engine::bean_renderer {
         ~renderModule();
         SDL_Renderer* m_renderer = nullptr;
 
+        /**
+         * Get the dimensions of the window.
+         * @return [X, Y] dimensions
+         */
+        bean_math::vector2<int32_t> getDimensions() const noexcept;
+
         void kill() const;
     protected:
 
     private:
+        int m_width = 0;
+        int m_height = 0;
+
         SDL_Window* m_window = nullptr;
     };
 }

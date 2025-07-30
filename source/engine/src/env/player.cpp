@@ -5,16 +5,22 @@
 
 namespace bean_engine::bean_actors {
     void player::update(const float dt) {
-        bean_math::vector2<float> direction;
-        if (getEngine().getInput().getKeyDown(SDL_SCANCODE_W)) direction.y -= 1;
-        if (getEngine().getInput().getKeyDown(SDL_SCANCODE_S)) direction.y += 1;
-        if (getEngine().getInput().getKeyDown(SDL_SCANCODE_A)) direction.x -= 1;
-        if (getEngine().getInput().getKeyDown(SDL_SCANCODE_D)) direction.x += 1;
+        constexpr float speed = 50.0f;
+        float rotation = 0.0f;
+        constexpr float rotationRate = 5.0f;
 
-        if (direction.lengthSqr() > 0) {
-            float speed = 1.0f;
-            direction = direction.normalized();
-            m_transform.position += (direction * speed) * dt;
-        }
+
+        if (getEngine().getInput().getKeyDown(SDL_SCANCODE_A)) rotation -= 1.0f;
+        if (getEngine().getInput().getKeyDown(SDL_SCANCODE_D)) rotation += 1.0f;
+        m_transform.rotation += (rotation * rotationRate) * dt;
+
+        float thrust = 0.0f;
+        if (getEngine().getInput().getKeyDown(SDL_SCANCODE_W)) thrust += 1.0f;
+        if (getEngine().getInput().getKeyDown(SDL_SCANCODE_S)) thrust -= 1.0f;
+
+        const bean_math::vector2<float> direction{1, 0};
+const bean_math::vector2<float> force = direction.rotate(m_transform.rotation) * thrust * speed;        m_velocity += force * dt;
+
+        actor::update(dt);
     }
 }

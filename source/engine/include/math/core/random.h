@@ -1,3 +1,4 @@
+#pragma once
 #include <random>
 
 namespace bean_engine::bean_math::random {

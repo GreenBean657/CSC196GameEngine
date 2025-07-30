@@ -6,9 +6,6 @@
 
 using namespace bean_engine;
 namespace bean_engine {
-    class engine;
-
-    [[nodiscard]] engine& getEngine();
 
     class engine {
         public:
@@ -33,4 +30,7 @@ namespace bean_engine {
         std::unique_ptr<bean_input::inputModule> m_input;
 
     };
+
+    [[nodiscard]] engine& getEngine();
+
 }

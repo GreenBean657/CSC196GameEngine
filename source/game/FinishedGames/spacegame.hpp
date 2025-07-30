@@ -1,6 +1,7 @@
 #pragma once
 #include "engine.h"
 #include "env/player.h"
+#include "math/core/random.h"
 
 using namespace bean_engine;
 inline void spaceGame::init() {
@@ -17,11 +18,16 @@ inline void spaceGame::init() {
 
     auto model = std::make_shared<bean_renderer::model>(position, bean_math::color4(255, 255, 255, 255));
 
-    for (size_t i = 0; i < 10; i++) {
-        bean_math::transform trans{bean_math::vector2<float>()};
-        auto plr = std::make_unique<bean_actors::player>(trans, model);
-        m_scene->addActor(std::move(plr));
-    }
+    bean_math::transform trans{
+        {
+            static_cast<float>(400),
+            static_cast<float>(400),
+        },
+        0.0f,
+        1.0};
+    auto plr = std::make_unique<bean_actors::player>(trans, model);
+    m_scene->addActor(std::move(plr));
+
 
 }
 
@@ -34,23 +40,28 @@ inline void spaceGame::kill() {
 }
 
 inline void spaceGame::draw() {
-
+    m_scene->draw(getEngine().getRenderer());
 }
 
 
 
 inline int run() {
-    bean_engine::engine& engine = bean_engine::getEngine();
-    engine.assignWindowProperties("Space Game", 800, 800);
+    getEngine().assignWindowProperties("Space Game", 800, 800);
     auto game = std::make_unique<spaceGame>();
     game->init();
     bool quit = false;
     while (!quit) {
+        getEngine().getRenderer().setDrawColor(bean_math::color4(0, 0, 0, 255));
+        getEngine().getRenderer().clear();
+        getEngine().getTimeModule().tick();
         quit = getEngine().getRenderer().tryExit();
+        if (getEngine().getInput().getKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+        getEngine().update();
         game->update();
         game->draw();
+        getEngine().getInput().tick();
+        getEngine().getRenderer().present();
     }
 
-    game->kill();
     return 0;
 }

@@ -13,14 +13,14 @@ namespace bean_engine::bean_renderer {
         SDL_Quit();
     }
 
-    renderModule::renderModule(const std::string &name, const uint32_t &width, const uint32_t &height) {
+    renderModule::renderModule(const std::string &name, const int32_t &width, const int32_t &height) {
         if (!SDL_Init(SDL_INIT_VIDEO)) {
             throw std::runtime_error("Failed to initialize SDL3.");
         }
         if (!TTF_Init()) {
             throw std::runtime_error("Failed to initialize TTF.");
         }
-        m_window = SDL_CreateWindow(name.c_str(), static_cast<int32_t>(width), static_cast<int32_t>(height), 0);
+        m_window = SDL_CreateWindow(name.c_str(), (width), (height), 0);
         if (m_window == nullptr) {
             std::cerr << "Failed to create window: " << SDL_GetError() << std::endl;
             SDL_Quit();
@@ -64,5 +64,9 @@ namespace bean_engine::bean_renderer {
 
     renderModule::~renderModule() {
         kill();
+    }
+
+    bean_math::vector2<int32_t > renderModule::getDimensions() const noexcept{
+        return {m_width, m_height};
     }
 }

@@ -4,10 +4,16 @@
 #include "renderer/model.h"
 #include "renderer/core.h"
 #include <memory>
+
+#include "math/vectors/vector3.h"
+
 namespace bean_engine::bean_actors {
     class actor {
         public:
+            std::string m_name;
+            std::string m_tag;
 
+            bean_math::vector2<float> m_velocity{0, 0};
         /**
         * @brief Create a new actor.
         * Create a new actor object, with is an exclusive class designed to manage both a transform and model.
