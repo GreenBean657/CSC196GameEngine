@@ -14,6 +14,8 @@ namespace bean_engine::bean_renderer {
     }
 
     renderModule::renderModule(const std::string &name, const int32_t &width, const int32_t &height) {
+        m_width = width;
+        m_height = height;
         if (!SDL_Init(SDL_INIT_VIDEO)) {
             throw std::runtime_error("Failed to initialize SDL3.");
         }

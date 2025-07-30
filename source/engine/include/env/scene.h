@@ -1,12 +1,15 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <string>
+#include "renderer/core.h"
 
-#include "player.h"
-#include "env/actor.h"
 namespace bean_engine::bean_actors {
+
+    class actor;
+
     class scene {
-        public:
+    public:
         scene() = default;
 
         /**
@@ -14,6 +17,7 @@ namespace bean_engine::bean_actors {
         * @param dt Deltatime.
         */
         void update(float dt) const;
+
         /**
         * @brief Draw all the actors to the screen.
         * @param renderer Renderer to draw on.
@@ -26,7 +30,8 @@ namespace bean_engine::bean_actors {
          */
         void addActor(std::unique_ptr<actor> actor);
 
+        actor* getActorByName(const std::string& name) const;
     protected:
-        std::vector<std::shared_ptr<actor>> m_actors;
+        std::vector<std::unique_ptr<actor>> m_actors;
     };
 }

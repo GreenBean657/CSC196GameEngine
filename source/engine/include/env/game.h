@@ -17,6 +17,9 @@ namespace bean_engine {
 
 
     protected:
+        int m_score = 0;
+        int m_lives = 3;
+
         std::unique_ptr<bean_actors::scene> m_scene;
     };
 }

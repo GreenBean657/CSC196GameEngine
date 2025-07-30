@@ -90,6 +90,20 @@ namespace bean_engine::bean_math {
             y *= v.y;
             return *this;
         }
+
+        vector2& operator *= (const float f) {
+            x *= f;
+            y *= f;
+            return *this;
+        }
+
+        vector2& operator /= (const float f) {
+            assert(f != 0);
+            x /= f;
+            y /= f;
+            return *this;
+        }
+
         vector2& operator /= (const vector2& v) {
             assert(v.x != 0);
             assert(v.y != 0);
