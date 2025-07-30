@@ -14,9 +14,6 @@ namespace bean_engine::bean_renderer {
     }
 
     renderModule::renderModule(const std::string &name, const uint32_t &width, const uint32_t &height) {
-        if (width < 0 || height < 0) {
-            throw std::invalid_argument("width and height must be non-negative");
-        }
         if (!SDL_Init(SDL_INIT_VIDEO)) {
             throw std::runtime_error("Failed to initialize SDL3.");
         }
@@ -44,13 +41,6 @@ namespace bean_engine::bean_renderer {
 
     void renderModule::setDrawColor(const bean_math::f_color4& color) const {
         SDL_SetRenderDrawColorFloat(m_renderer, color.r, color.g, color.b, color.a);
-    }
-
-    void renderModule::drawLine(const bean_math::vector2<float> pos1, const bean_math::vector2<float> pos2) const {
-        SDL_RenderLine(m_renderer, pos1.x, pos1.y, pos2.x, pos2.y);
-    }
-    void renderModule::drawPoint(const bean_math::vector2<float> pos) const {
-        SDL_RenderPoint(m_renderer, pos.x, pos.y);
     }
     void renderModule::clear() const {
         SDL_RenderClear(m_renderer);

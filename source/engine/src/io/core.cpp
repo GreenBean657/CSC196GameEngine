@@ -1,6 +1,5 @@
-#include "include/io/file.h"
+#include "include/io/core.h"
 
-#include <atomic>
 
 #include "include/exceptions/io.h"
 #include <filesystem>
@@ -14,7 +13,7 @@ namespace bean_engine::file_io {
         std::error_code ec;
         const std::filesystem::path path = std::filesystem::current_path(ec);
         if (ec) {
-            return std::string();
+            return {};
         }
         return path.string();
 
@@ -32,8 +31,9 @@ namespace bean_engine::file_io {
     }
     [[nodiscard]] std::string getFileStem(const std::string &fpath) {
         const std::filesystem::path file(fpath);
-        return file.stem().string();
+        return file.stem().generic_string();  // stem() strips the extension
     }
+
 
     [[nodiscard]] std::string getFileName(const std::string &fpath) {
         return getFileStem(fpath) + getExtension(fpath);

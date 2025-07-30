@@ -8,12 +8,12 @@ namespace bean_engine::bean_math {
     constexpr double twoPI = (2 * PI);
     constexpr double halfPI = (PI * 0.5);
 
-    constexpr double degToRad(const double &degrees) {
-        return degrees * (PI / 180.0);
+    constexpr float degToRad(const float &degrees) {
+        return degrees * (static_cast<float>(PI) / 180.0f);
 
     }
-    constexpr double radToDeg(const double &radians) {
-        return radians * (180.0 / PI);
+    constexpr float radToDeg(const float &radians) {
+        return radians * (180.0f / static_cast<float>(PI));
 
     }
 
@@ -25,18 +25,9 @@ namespace bean_engine::bean_math {
     using std::sin;
     using std::sinf;
     using std::cos;
+    using std::cosf;
+    using std::atan;
+    using std::atan2;
+    using std::atan2f;
 
-    inline int getRandomInt(const int min = 0, const int max = 100) {
-        assert(max >= min);
-        std::mt19937 rand(std::random_device{}());
-        std::uniform_int_distribution dist(min, max);
-        return dist(rand);
-    }
-
-    inline double getRandomDouble(const double min = 0.0, const double max = 1.0) {
-        assert(max >= min);
-        std::mt19937 rand(std::random_device{}());
-        std::uniform_real_distribution dist(min, max);
-        return dist(rand);
-    }
 }

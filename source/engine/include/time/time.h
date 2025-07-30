@@ -3,9 +3,9 @@
 #pragma once
 #include <chrono>
 namespace bean_engine::bean_core {
-    class Time {
+    class time {
     public:
-        Time() {
+        time() {
             startTime = clock::now();
             frameTime = clock::now();
         }
@@ -20,11 +20,11 @@ namespace bean_engine::bean_core {
             startTime = clock::now();
         }
 
-        float getTime() const {
+        [[nodiscard]] float getTime() const {
             return m_time;
         }
 
-        float getDeltaTime() const {
+        [[nodiscard]] float getDeltaTime() const {
             return d_time;
         }
 

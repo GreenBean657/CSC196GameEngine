@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL3/SDL_render.h>
 
-#include "core_extended.h"
+#include "core.h"
 #include "math/vectors/vector2.h"
 
 // renderModule_impl.tpp

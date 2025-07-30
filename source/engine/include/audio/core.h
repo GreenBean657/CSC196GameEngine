@@ -14,13 +14,10 @@ namespace bean_engine::bean_audio {
 
             bool playSound(const std::string& filepath);
 
-
-
-
-            void Kill() const;
+            void kill() const;
 
         ~audioModule() {
-            Kill();
+            kill();
         }
         private:
             static bool moduleEcc(const bool &hardLockdown, const FMOD_RESULT &result);

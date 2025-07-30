@@ -23,12 +23,20 @@ namespace bean_engine::file_io {
     std::string getExtension(const std::string &fpath) noexcept;
 
     /**
-     * Get the file name of a file, without the extension.
+     * Get the file name of a file, with the extension.
      * @brief Get file path.
      * @param fpath Filepath.
-     * @return File path. "~/Home/foobar/Downloads/myfile.txt -> myfile"
+     * @return File path. "~/home/foobar/Downloads/myfile.txt -> myfile.txt"
      */
     std::string getFileName(const std::string &fpath) noexcept;
+
+    /**
+ * Get the file name of a file, without the extension.
+ * @brief Get file path.
+ * @param fpath Filepath.
+ * @return File path. "~/home/foobar/Downloads/myfile.txt -> myfile"
+ */
+    std::string getFileStem(const std::string &fpath) noexcept;
 
     /**
      * @brief Check if a file exists.
@@ -57,7 +65,7 @@ namespace bean_engine::file_io {
      * @brief Read the contexts of a text file.
      * @param fpath File path.
      * @return File contents.
-     * @throws std::filesystem::filesystem_error Failed to locate the file, or the file is locked.
+     * @throws bean_engine::exceptions::io_exception Failed to locate the file, or the file is locked.
      */
     std::string ReadTextFile(const std::string& fpath);
 

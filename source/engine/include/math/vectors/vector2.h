@@ -3,6 +3,8 @@
 #include <cmath>
 #include <stdexcept>
 
+#include "math/core/core.h"
+
 namespace bean_engine::bean_math {
     template<typename T>
     struct vector2 {
@@ -14,14 +16,38 @@ namespace bean_engine::bean_math {
             x = xx;
             y = yy;
         }
+
         /**
-        * @brief Returns the squared length of the vector.
-        */
+         * @brief Returns the squared length of the vector.
+         * @return Squared length.
+         */
         [[nodiscard]] float lengthSqr() const {
             return ((x * x) + (y * y));
         }
         [[nodiscard]] float length() const {
             return sqrtf(lengthSqr());
+        }
+
+        vector2 normalized() const {
+            T len = length();
+            if (len == 0) return vector2(); // Return zero vector
+            return *this / len;
+        }
+
+        [[nodiscard]] float angle() const {
+            return bean_math::atan2f(y, x);
+        };
+
+        /**
+         * @brief Rotate the object.
+         * @param radians Radians to rotate by.
+         * @return A new Vector2 representing the rotated object.
+         */
+        vector2 rotate(float radians) const {
+            vector2 r;
+            r.x = this->x * bean_math::cosf(radians) - y * bean_math::sinf(radians);
+            r.y = this->x * bean_math::sinf(radians) + y * bean_math::cosf(radians);
+            return r;
         }
 
         T operator[](const size_t index) const {

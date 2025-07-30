@@ -1,4 +1,4 @@
-#include "Demos/modeldemo.h"
+#include "FinishedGames/spacegame.h"
 int main() {
-    return demo();
+    return run();
 }

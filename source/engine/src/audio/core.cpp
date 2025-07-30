@@ -25,7 +25,7 @@ namespace bean_engine::bean_audio {
         moduleEcc(false, m_system->update());
     }
 
-    void audioModule::Kill() const {
+    void audioModule::kill() const {
         moduleEcc(false, m_system->release());
     }
 

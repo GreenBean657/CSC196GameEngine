@@ -1,5 +1,6 @@
 #include "renderer/text.h"
 #include <iostream>
+#include <SDL3_ttf/SDL_ttf.h>
 
 using namespace bean_engine;
 
@@ -10,7 +11,7 @@ bean_text::Text::~Text() {
 }
 
 bool bean_text::Text::Create(const bean_engine::bean_renderer::renderModule &renderer, const std::string &text, const bean_engine::bean_math::color4 c) {
-    SDL_Color color = {c.r, c.g, c.b, c.a};
+    const SDL_Color color = {c.r, c.g, c.b, c.a};
     SDL_Surface* surface = TTF_RenderText_Solid(m_font->m_tffFont, text.c_str(), text.size(), color);
     if (surface == nullptr) {
         std::cout << "TTF_RenderText_Solid failed" << std::endl;

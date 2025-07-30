@@ -1,0 +1,14 @@
+#include "env/actor.h"
+
+
+namespace bean_engine::bean_actors {
+    void actor::update(float deltaTime) {
+
+    }
+
+    void actor::draw(const bean_renderer::renderModule& renderer) const {
+        m_model->draw(renderer, m_transform);
+    }
+
+
+}

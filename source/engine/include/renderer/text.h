@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+
 #include "font.h"
 #include "renderer/core.h"
 #include "renderer/model.h"
@@ -9,7 +11,7 @@ namespace bean_engine::bean_text {
     public:
         Text() = default;
 
-        explicit Text(bean_engine::bean_text::Font* font) {
+        explicit Text(const std::shared_ptr<Font>& font) {
             m_font = font;
         }
 
@@ -20,7 +22,7 @@ namespace bean_engine::bean_text {
 
 
     private:
-        Font* m_font = nullptr;
+        std::shared_ptr<Font> m_font = nullptr;
         SDL_Texture* m_texture = nullptr;
     };
 }

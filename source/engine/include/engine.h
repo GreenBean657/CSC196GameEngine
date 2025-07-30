@@ -2,28 +2,35 @@
 #include "audio/core.h"
 #include "input/core.h"
 #include "renderer/core.h"
+#include "time/time.h"
 
+using namespace bean_engine;
 namespace bean_engine {
-    class Engine {
+    class engine;
+
+    [[nodiscard]] engine& getEngine();
+
+    class engine {
         public:
-        explicit Engine(const std::string& gameName = "My Application", const uint32_t& width = 600, const uint32_t& height = 600) {
-            m_renderer = new bean_renderer::renderModule(gameName, width, height);
-            m_audio = new bean_audio::audioModule();
-            m_input = new bean_input::inputModule();
-        }
+        explicit engine();
 
+        void assignWindowProperties(const std::string& gameName = "My Application", const uint32_t& width = 600, const uint32_t& height = 600);
 
+        void kill();
 
+        void update() const;
 
+        [[nodiscard]] bean_renderer::renderModule& getRenderer() const { return *m_renderer;};
+        [[nodiscard]] bean_audio::audioModule& getAudio() const {return *m_audio;}
+        [[nodiscard]] bean_input::inputModule& getInput() const {return *m_input;}
 
-        ~Engine() {
-            delete m_input;
-            delete m_audio;
-            delete m_renderer;
-        }
+        bean_core::time& getTimeModule() {return m_time;}
+
         private:
-            bean_renderer::renderModule *m_renderer = nullptr;
-            bean_audio::audioModule *m_audio = nullptr;
-            bean_input::inputModule *m_input = nullptr;
+            bean_core::time m_time;
+            std::unique_ptr<bean_renderer::renderModule> m_renderer = nullptr;
+            std::unique_ptr<bean_audio::audioModule> m_audio;
+        std::unique_ptr<bean_input::inputModule> m_input;
+
     };
 }

@@ -8,11 +8,13 @@
 #include "renderer/model.h"
 #include "time/time.h"
 #include <memory>
+
+#include "env/scene.h"
 using namespace bean_engine;
 inline int demo() {
 
     bean_renderer::renderModule renderer;
-    bean_core::Time time;
+    bean_core::time time;
     auto input = std::make_unique<bean_input::inputModule>();
 
     auto quit = false;
@@ -36,7 +38,6 @@ inline int demo() {
 
     const bean_math::transform transform{bean_math::vector2<float>(0, 0), 180, 20};
 
-    const auto actor = new bean_engine::actor(transform, model);
     while (!quit) {
         quit = renderer.tryExit();
 
@@ -48,19 +49,20 @@ inline int demo() {
         if (direction.lengthSqr() > 0) {
             constexpr float speed = 200.0f;
             direction = direction.normalized();
-            actor->getTransform().position += (direction * speed) * time.getDeltaTime();
+           // actor->getTransform().position += (direction * speed) * time.getDeltaTime();
         }
 
-        if (input->getKeyDown(SDL_SCANCODE_Q)) actor->getTransform().rotation -= bean_math::degToRad(90 * time.getDeltaTime());
-        if (input->getKeyDown(SDL_SCANCODE_E)) actor->getTransform().rotation += bean_math::degToRad(90 * time.getDeltaTime());
+        //if (input->getKeyDown(SDL_SCANCODE_Q)) actor->getTransform().rotation -= bean_math::degToRad(90 * time.getDeltaTime());
+        //if (input->getKeyDown(SDL_SCANCODE_E)) actor->getTransform().rotation += bean_math::degToRad(90 * time.getDeltaTime());
         renderer.setDrawColor(bean_math::color4(0, 0, 0, 255));
         renderer.clear();
-        actor->draw(renderer);
+
         renderer.present();
         input->tick();
         time.tick();
 
     }
+
     renderer.kill();
     return 0;
 }

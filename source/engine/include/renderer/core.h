@@ -74,10 +74,10 @@ namespace bean_engine::bean_renderer {
         ~renderModule();
         SDL_Renderer* m_renderer = nullptr;
 
+        void kill() const;
     protected:
 
     private:
-        void kill() const;
         SDL_Window* m_window = nullptr;
     };
 }
