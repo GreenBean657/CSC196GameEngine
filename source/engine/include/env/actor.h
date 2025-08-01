@@ -3,18 +3,23 @@
 #include "math/vectors/transform.h"
 #include "renderer/model.h"
 #include "renderer/core.h"
-#include "env/scene.h"
+
 #include <memory>
 
 #include "math/vectors/vector3.h"
 
 namespace bean_engine::bean_actors {
+    class scene;
     class actor {
-        class scene;
+
+
         public:
+
+            bool destroyed = false;
+            float lifespan = -1.0f;
             std::string m_name;
             std::string m_tag;
-        bean_actors::scene *m_scene;
+            scene *m_scene;
             bean_math::transform m_transform;
 
             bean_math::vector2<float> m_velocity{0, 0};
@@ -58,6 +63,14 @@ namespace bean_engine::bean_actors {
             return m_transform;
         }
 
+        float getRadius() const noexcept {
+            if (m_model) {
+                return m_model->getRadius() * m_transform.scale;
+            }
+            return 0.0f;
+        }
+
+        virtual void onCollision(actor* other) = 0;
         virtual ~actor() = default;
 
     protected:

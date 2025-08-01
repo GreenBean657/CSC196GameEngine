@@ -2,21 +2,30 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <list>
+
+
 #include "renderer/core.h"
+namespace bean_engine {
+    class game;  // Forward declaration
+}
+
 
 namespace bean_engine::bean_actors {
 
-    class actor;
 
+    class actor;
     class scene {
     public:
-        scene() = default;
+        explicit scene(game* game) {
+            m_game = game;
+        }
 
         /**
         * Update all actors in the scene.
         * @param dt Deltatime.
         */
-        void update(float dt) const;
+        void update(float dt);
 
         /**
         * @brief Draw all the actors to the screen.
@@ -30,8 +39,19 @@ namespace bean_engine::bean_actors {
          */
         void addActor(std::unique_ptr<actor> actor);
 
-        actor* getActorByName(const std::string& name) const;
+        void removeAllActors();
+
+        [[nodiscard]] actor* getActorByName(const std::string& name) const;
+
+        template<typename T = actor>
+        [[nodiscard]] std::vector<T*> getActorsByTag(const std::string& tag) const;
+        game* getGame() const {
+            return m_game;
+        }
     protected:
-        std::vector<std::unique_ptr<actor>> m_actors;
+        game* m_game = nullptr;
+        std::list<std::unique_ptr<actor>> m_actors;
     };
 }
+
+#include "scene_impl.h"

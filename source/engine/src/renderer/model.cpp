@@ -6,6 +6,7 @@ namespace bean_engine::bean_renderer {
     model::model(const std::vector<bean_math::vector2<float> > &points, const bean_math::color4 &color4) {
         m_points = points;
         m_color = color4;
+        calculateRadius();
     }
 
     /**
@@ -38,5 +39,16 @@ namespace bean_engine::bean_renderer {
         model::draw(renderer, transform.position, transform.rotation, transform.scale);
 
     }
+
+    void model::calculateRadius() {
+        m_radius = 0.0f;
+        for (auto& point : m_points) {
+            float length = point.length();
+            if (length > m_radius) {
+                m_radius = length;
+            }
+        }
+    }
+
 
 }

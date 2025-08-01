@@ -1,6 +1,8 @@
 #include "env/enemy.h"
 #include <iostream>
 #include "engine.h"
+#include "env/game.h"
+#include "env/scene.h"
 namespace bean_engine::bean_actors {
     void enemy::update(const float dt) {
         constexpr float speed = 200.0f;
@@ -23,4 +25,11 @@ namespace bean_engine::bean_actors {
         actor::update(dt);
     }
 
+    void enemy::onCollision(actor* other) {
+        if (other->m_tag != "enemy") {
+            this->destroyed = true;
+            m_scene->getGame()->addPoints(100);
+            std::cout << m_scene-> getGame()->getScore() << std::endl;
+        }
+    }
 }

@@ -9,7 +9,7 @@ namespace bean_engine::bean_text {
         Font() = default;
         ~Font();
 
-        bool load(const std::string& filename, const float& size);
+        bool load(const std::string& filename, const int& size);
 
     private:
         friend class Text;
