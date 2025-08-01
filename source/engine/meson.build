@@ -18,7 +18,8 @@ engine_sources = files(
     'src/env/player.cpp',
     'src/env/enemy.cpp',
     'src/env/scene.cpp',
-    'src/env/rocket.cpp'
+    'src/env/rocket.cpp',
+    'src/env/firereset.cpp'
 )
 fmod_inc = include_directories('../../source/thirdparty/fmod/core/inc')
 

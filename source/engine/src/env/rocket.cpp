@@ -15,7 +15,7 @@ namespace bean_engine::bean_actors {
         actor::update(dt);
     }
     void rocket::onCollision(actor *other) {
-        if (other->m_tag != m_tag && other->m_tag != "player") {
+        if (other->m_tag != m_tag && other->m_tag != "player" && other->m_tag != "droppedreseter") {
             destroyed = true;
         }
     }

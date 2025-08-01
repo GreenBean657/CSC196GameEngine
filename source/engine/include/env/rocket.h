@@ -1,3 +1,4 @@
+#pragma once
 #include "actor.h"
 namespace bean_engine::bean_actors {
     class rocket : public actor {

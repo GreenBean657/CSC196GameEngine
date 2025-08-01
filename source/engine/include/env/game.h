@@ -16,8 +16,12 @@ namespace bean_engine {
         virtual void draw() = 0;
 
          void addPoints(const int numPoints) {
-            m_score += numPoints;
+            m_score += (numPoints * m_pointMulti);
         }
+
+        void increaseMultiplier() {
+             m_pointMulti *= 1.1f;
+         }
         [[nodiscard]] int getScore() const {
             return m_score;
         }
@@ -31,8 +35,9 @@ namespace bean_engine {
         }
 
     protected:
-        int m_score = 0;
-        int m_lives = 3;
+        float m_pointMulti = 1.0f;
+        uint64_t m_score = 0;
+        int32_t m_lives = 3;
 
         std::unique_ptr<bean_actors::scene> m_scene;
     };

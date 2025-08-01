@@ -65,7 +65,7 @@ namespace bean_engine::bean_actors {
 
         float getRadius() const noexcept {
             if (m_model) {
-                return m_model->getRadius() * m_transform.scale;
+                return m_model->getRadius() * m_transform.scale * 0.9f;
             }
             return 0.0f;
         }

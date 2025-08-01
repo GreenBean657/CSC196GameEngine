@@ -3,6 +3,7 @@
 #include "input/core.h"
 #include "renderer/core.h"
 #include "time/time.h"
+#include "renderer/particles.h"
 
 using namespace bean_engine;
 namespace bean_engine {
@@ -20,6 +21,7 @@ namespace bean_engine {
         [[nodiscard]] bean_renderer::renderModule& getRenderer() const { return *m_renderer;};
         [[nodiscard]] bean_audio::audioModule& getAudio() const {return *m_audio;}
         [[nodiscard]] bean_input::inputModule& getInput() const {return *m_input;}
+        [[nodiscard]] bean_renderer::particleSystem& getPS() const {return *m_particlesystem;}
 
         bean_core::time& getTimeModule() {return m_time;}
 
@@ -27,8 +29,8 @@ namespace bean_engine {
             bean_core::time m_time;
             std::unique_ptr<bean_renderer::renderModule> m_renderer = nullptr;
             std::unique_ptr<bean_audio::audioModule> m_audio;
-        std::unique_ptr<bean_input::inputModule> m_input;
-
+            std::unique_ptr<bean_input::inputModule> m_input;
+            std::unique_ptr<bean_renderer::particleSystem> m_particlesystem;
     };
 
     [[nodiscard]] engine& getEngine();

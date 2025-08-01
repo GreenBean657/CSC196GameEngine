@@ -26,9 +26,14 @@ namespace bean_engine::bean_actors {
     }
 
     void enemy::onCollision(actor* other) {
+        if (other->m_tag == "droppedreseter") {
+            return;
+        }
         if (other->m_tag != "enemy") {
             this->destroyed = true;
-            m_scene->getGame()->addPoints(100);
+            if (other->m_tag != "player") {
+                m_scene->getGame()->addPoints(100);
+            }
             std::cout << m_scene-> getGame()->getScore() << std::endl;
         }
     }

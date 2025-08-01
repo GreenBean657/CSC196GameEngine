@@ -16,5 +16,13 @@ namespace bean_engine::bean_actors {
     private:
         float delay = 0.4f;
         float fireTimer = delay;
+
+        float laserDelay = 2.5f;
+        float laserPersistLength = 0.4f;
+        float laserTimer = laserDelay;
+        float laserPersistTimer = 0.0f;
+
+        float delayEngineThrust = 0.01f;
+        float engineThrust = delayEngineThrust;
     };
 }
